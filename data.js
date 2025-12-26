@@ -21,7 +21,9 @@ const cars = [
       "images/Hyundai-Getz-2006/2.jpg",
       "images/Hyundai-Getz-2006/3.jpg",
       "images/Hyundai-Getz-2006/4.jpg",
-      "images/Hyundai-Getz-2006/5.jpg"
+      "images/Hyundai-Getz-2006/5.jpg",
+	  "images/Hyundai-Getz-2006/6.jpg",
+	  "images/Hyundai-Getz-2006/7.jpg"
     ],
     contactPhone: "+33 6 12 34 56 78",
     contactWhatsApp: "33612345678"
