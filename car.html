@@ -5,6 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-site-verification" content="EM0MzQDrT0i0H3eBpOHunDXy4vE9RCtEstv6ogp5p5A" />
   <title>DL.AUTO - Fiche véhicule</title>
+  <style>
+  /* Лайтбокс для галереи */
+  .lightbox {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+  }
+  .lightbox-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 90%;
+    max-height: 90%;
+    border: 2px solid #FFD700;
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 40px;
+    color: #FFD700;
+    cursor: pointer;
+  }
+  .lightbox-prev, .lightbox-next {
+    position: absolute;
+    top: 50%;
+    font-size: 30px;
+    color: #FFD700;
+    cursor: pointer;
+    padding: 20px;
+    user-select: none;
+  }
+  .lightbox-prev { left: 20px; }
+  .lightbox-next { right: 20px; }
+</style>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -83,17 +124,25 @@
       }
     };
 
-    function renderCar(car) {
-      const container = document.getElementById('carDetail');
-      container.innerHTML = `
-        <!-- Galerie -->
-        <div class="bg-black rounded-lg shadow-lg mb-8 border border-jaune">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4" id="gallery">
-            ${car.photos.map((photo, index) => `
-              <img src="${photo}" class="w-full h-64 object-cover rounded-lg cursor-pointer hover:opacity-90 transition border border-jaune" onclick="openPhoto('${photo}')">
-            `).join('')}
-          </div>
-        </div>
+  function renderCar(car) {
+  const container = document.getElementById('carDetail');
+  container.innerHTML = `
+    <!-- Галерея -->
+    <div class="bg-black rounded-lg shadow-lg mb-8 border border-jaune">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4" id="gallery">
+        ${car.photos.map((photo, index) => `
+          <img src="${photo}" class="w-full h-64 object-cover rounded-lg cursor-pointer hover:opacity-90 transition border border-jaune" onclick="openGallery(${index})">
+        `).join('')}
+      </div>
+    </div>
+
+    <!-- Лайтбокс -->
+    <div id="lightbox" class="lightbox" onclick="closeGallery()">
+      <span class="lightbox-close">&times;</span>
+      <span class="lightbox-prev" onclick="changePhoto(-1)">&#10094;</span>
+      <span class="lightbox-next" onclick="changePhoto(1)">&#10095;</span>
+      <img id="lightbox-img" class="lightbox-content">
+    </div>
 
         <!-- Infos principales -->
         <div class="bg-black rounded-lg shadow-lg p-6 mb-8 border border-jaune">
@@ -140,9 +189,28 @@
       `;
     }
 
-    function openPhoto(photo) {
-      window.open(photo, '_blank');
-    }
+let currentPhotoIndex = 0;
+let currentPhotos = [];
+
+function openGallery(index) {
+  currentPhotoIndex = index;
+  currentPhotos = car.photos;
+  document.getElementById('lightbox').style.display = 'block';
+  document.getElementById('lightbox-img').src = currentPhotos[currentPhotoIndex];
+  event.stopPropagation();
+}
+
+function closeGallery() {
+  document.getElementById('lightbox').style.display = 'none';
+}
+
+function changePhoto(direction) {
+  currentPhotoIndex += direction;
+  if (currentPhotoIndex < 0) currentPhotoIndex = currentPhotos.length - 1;
+  if (currentPhotoIndex >= currentPhotos.length) currentPhotoIndex = 0;
+  document.getElementById('lightbox-img').src = currentPhotos[currentPhotoIndex];
+  event.stopPropagation();
+}
   </script>
 </body>
 </html>
