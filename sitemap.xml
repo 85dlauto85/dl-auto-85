@@ -2,24 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://85dlauto85.github.io/dl-auto-85/</loc>
+    <lastmod>2025-12-26</lastmod>
     <priority>1.0</priority>
-    <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://85dlauto85.github.io/dl-auto-85/catalog.html</loc>
+    <lastmod>2025-12-26</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://85dlauto85.github.io/dl-auto-85/car.html?id=001</loc>
+    <loc>https://85dlauto85.github.io/dl-auto-85/car.html</loc>
+    <lastmod>2025-12-26</lastmod>
     <priority>0.8</priority>
   </url>
-  <url>
-    <loc>https://85dlauto85.github.io/dl-auto-85/car.html?id=002</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://85dlauto85.github.io/dl-auto-85/car.html?id=003</loc>
-    <priority>0.8</priority>
-  </url>
-  <!-- ДОБАВЬ ВСЕ 50 МАШИН ПО АНАЛОГИИ -->
 </urlset>

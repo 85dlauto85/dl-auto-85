@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
-Sitemap:  https://85dlauto85.github.io/DL.AUTO/sitemap.xml
+Sitemap: https://85dlauto85.github.io/dl-auto-85/sitemap.xml
