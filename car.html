@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DL.AUTO - Fiche véhicule</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'argent': '#C0C0C0',
+            'jaune': '#FFD700',
+            'noir': '#000000'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-900 text-white">
+  <!-- Header -->
+  <header class="bg-black shadow-lg sticky top-0 z-50 border-b-2 border-jaune">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center">
+        <div class="text-2xl font-black text-white mr-2">◆</div>
+        <a href="catalog.html" class="text-2xl font-black text-argent hover:text-jaune transition">DL.<span class="text-jaune">AUTO</span></a>
+      </div>
+      <a href="tel:+33612345678" class="bg-jaune text-black px-6 py-2 rounded-lg font-bold hover:bg-yellow-500 transition">
+        📞 Appeler
+      </a>
+    </div>
+  </header>
+
+  <div class="container mx-auto px-4 py-8" id="carDetail">
+    <!-- Contenu chargé dynamiquement -->
+  </div>
+
+  <script>
+    const cars = [
+      {
+        id: "001",
+        make: "BMW",
+        model: "X5",
+        year: 2020,
+        price: 45000,
+        mileage: 45000,
+        city: "Paris",
+        engine: "3.0 essence",
+        transmission: "automatique",
+        body: "SUV",
+        color: "noir",
+        description: "Excellent état, 4x4 d'origine, entretien concessionnaire. Options: toit panoramique, régulateur adaptatif, caméra 360°, sièges ventilés.",
+        photos: ["https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800", "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800"],
+        contactPhone: "+33 6 12 34 56 78",
+        contactWhatsApp: "33612345678"
+      },
+      {
+        id: "002",
+        make: "Mercedes-Benz",
+        model: "Classe E",
+        year: 2019,
+        price: 38000,
+        mileage: 67000,
+        city: "Lyon",
+        engine: "2.0 diesel",
+        transmission: "automatique",
+        body: "berline",
+        color: "blanc",
+        description: "Magnifique berline business. Diesel économique, régulateur adaptatif, sièges confort, grand coffre.",
+        photos: ["https://images.unsplash.com/photo-1563720223185-11003d516935?w=800"],
+        contactPhone: "+33 6 98 76 54 32",
+        contactWhatsApp: "33698765432"
+      },
+      {
+        id: "003",
+        make: "Toyota",
+        model: "Camry",
+        year: 2021,
+        price: 32000,
+        mileage: 32000,
+        city: "Marseille",
+        engine: "2.5 essence",
+        transmission: "automatique",
+        body: "berline",
+        color: "argent",
+        description: "Sedan japonais fiable. État impeccable, un seul propriétaire, service complet chez concessionnaire.",
+        photos: ["https://images.unsplash.com/photo-1593720213428-28a5b9e94613?w=800"],
+        contactPhone: "+33 6 12 34 56 78",
+        contactWhatsApp: "33612345678"
+      }
+    ];
+
+    window.onload = function() {
+      const params = new URLSearchParams(window.location.search);
+      const carId = params.get('id');
+      const car = cars.find(c => c.id === carId);
+      
+      if (car) {
+        renderCar(car);
+      } else {
+        document.getElementById('carDetail').innerHTML = `
+          <div class="text-center py-20">
+            <div class="text-6xl mb-4">😔</div>
+            <h2 class="text-3xl font-bold mb-4">Véhicule non trouvé</h2>
+            <a href="catalog.html" class="bg-jaune text-black px-6 py-3 rounded-lg font-bold">Retour au catalogue</a>
+          </div>
+        `;
+      }
+    };
+
+    function renderCar(car) {
+      const container = document.getElementById('carDetail');
+      container.innerHTML = `
+        <!-- Galerie -->
+        <div class="bg-black rounded-lg shadow-lg mb-8 border border-jaune">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4" id="gallery">
+            ${car.photos.map((photo, index) => `
+              <img src="${photo}" class="w-full h-64 object-cover rounded-lg cursor-pointer hover:opacity-90 transition border border-jaune" onclick="openPhoto('${photo}')">
+            `).join('')}
+          </div>
+        </div>
+
+        <!-- Infos principales -->
+        <div class="bg-black rounded-lg shadow-lg p-6 mb-8 border border-jaune">
+          <div class="flex justify-between items-start mb-6">
+            <h1 class="text-4xl font-bold text-argent">${car.make} ${car.model}</h1>
+            <span class="bg-jaune text-black px-3 py-1 rounded-full font-bold">${car.year}</span>
+          </div>
+          
+          <div class="text-4xl font-bold text-jaune mb-6">${car.price.toLocaleString()} €</div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <h3 class="text-xl font-bold mb-4 text-argent">📝 Caractéristiques</h3>
+              <table class="w-full text-gray-300">
+                <tr class="border-b border-gray-700"><td class="py-2 font-medium text-argent">Kilométrage :</td><td>${car.mileage.toLocaleString()} km</td></tr>
+                <tr class="border-b border-gray-700"><td class="py-2 font-medium text-argent">Moteur :</td><td>${car.engine}</td></tr>
+                <tr class="border-b border-gray-700"><td class="py-2 font-medium text-argent">Boîte :</td><td>${car.transmission}</td></tr>
+                <tr class="border-b border-gray-700"><td class="py-2 font-medium text-argent">Carrosserie :</td><td>${car.body}</td></tr>
+                <tr class="border-b border-gray-700"><td class="py-2 font-medium text-argent">Couleur :</td><td>${car.color}</td></tr>
+                <tr><td class="py-2 font-medium text-argent">Ville :</td><td>📍 ${car.city}</td></tr>
+              </table>
+            </div>
+            
+            <div>
+              <h3 class="text-xl font-bold mb-4 text-argent">📞 Contact</h3>
+              <p class="mb-4 text-lg text-jaune">📱 <strong>${car.contactPhone}</strong></p>
+              <a href="https://wa.me/${car.contactWhatsApp}?text=Bonjour, je suis intéressé par ${car.make} ${car.model}" target="_blank" 
+                 class="inline-block bg-green-500 text-white px-6 py-3 rounded-lg font-bold hover:bg-green-600 transition mb-4">
+                💬 WhatsApp
+              </a>
+              <a href="tel:${car.contactPhone}" 
+                 class="block w-full text-center bg-jaune text-black px-6 py-3 rounded-lg font-bold hover:bg-yellow-500 transition">
+                📞 Appeler maintenant
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="bg-black rounded-lg shadow-lg p-6 border border-jaune">
+          <h3 class="text-2xl font-bold mb-4 text-argent">📋 Description</h3>
+          <p class="text-gray-300 leading-relaxed">${car.description}</p>
+        </div>
+      `;
+    }
+
+    function openPhoto(photo) {
+      window.open(photo, '_blank');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DL.AUTO - Vente de véhicules d'occasion</title>
+  <meta name="description" content="DL.AUTO - Vente de voitures de qualité. Grand catalogue, recherche facile.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'argent': '#C0C0C0',
+            'jaune': '#FFD700',
+            'noir': '#000000'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-900 text-white">
+  <!-- Logo et header -->
+  <header class="bg-black shadow-lg sticky top-0 z-50 border-b-2 border-jaune">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center">
+        <div class="text-2xl font-black text-white mr-2">◆</div>
+        <h1 class="text-3xl font-black text-argent">DL.<span class="text-jaune">AUTO</span></h1>
+      </div>
+      <a href="tel:+33612345678" class="bg-jaune text-black px-6 py-2 rounded-lg font-bold hover:bg-yellow-500 transition">
+        📞 Appeler
+      </a>
+    </div>
+  </header>
+
+  <!-- Recherche principale -->
+  <section class="bg-gradient-to-r from-black via-gray-800 to-argent py-20">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-5xl font-bold mb-8 text-jaune">Trouvez votre voiture idéale</h2>
+      <div class="max-w-2xl mx-auto">
+        <input 
+          type="text" 
+          id="mainSearch"
+          placeholder="BMW X5, Mercedes, Toyota..."
+          class="w-full px-6 py-4 text-lg text-black rounded-lg shadow-lg"
+        >
+        <button 
+          onclick="quickSearch()"
+          class="mt-4 bg-jaune text-black px-8 py-4 rounded-lg font-bold text-lg hover:bg-yellow-500 transition"
+        >
+          Rechercher
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marques populaires -->
+  <section class="py-16 bg-gray-900">
+    <div class="container mx-auto px-4">
+      <h3 class="text-3xl font-bold mb-8 text-center text-argent">Marques populaires</h3>
+      <div class="grid grid-cols-2 md:grid-cols-6 gap-4" id="brands">
+        <div class="bg-black p-6 rounded-lg shadow-lg text-center hover:shadow-yellow-500/50 transition cursor-pointer border border-jaune" onclick="filterByBrand('BMW')">
+          <div class="text-4xl mb-2 text-jaune">🚗</div>
+          <div class="font-bold text-argent">BMW</div>
+        </div>
+        <div class="bg-black p-6 rounded-lg shadow-lg text-center hover:shadow-yellow-500/50 transition cursor-pointer border border-jaune" onclick="filterByBrand('Mercedes-Benz')">
+          <div class="text-4xl mb-2 text-jaune">🚙</div>
+          <div class="font-bold text-argent">Mercedes</div>
+        </div>
+        <div class="bg-black p-6 rounded-lg shadow-lg text-center hover:shadow-yellow-500/50 transition cursor-pointer border border-jaune" onclick="filterByBrand('Audi')">
+          <div class="text-4xl mb-2 text-jaune">🚘</div>
+          <div class="font-bold text-argent">Audi</div>
+        </div>
+        <div class="bg-black p-6 rounded-lg shadow-lg text-center hover:shadow-yellow-500/50 transition cursor-pointer border border-jaune" onclick="filterByBrand('Toyota')">
+          <div class="text-4xl mb-2 text-jaune">🚐</div>
+          <div class="font-bold text-argent">Toyota</div>
+        </div>
+        <div class="bg-black p-6 rounded-lg shadow-lg text-center hover:shadow-yellow-500/50 transition cursor-pointer border border-jaune" onclick="filterByBrand('Kia')">
+          <div class="text-4xl mb-2 text-jaune">🏎️</div>
+          <div class="font-bold text-argent">Kia</div>
+        </div>
+        <div class="bg-black p-6 rounded-lg shadow-lg text-center hover:shadow-yellow-500/50 transition cursor-pointer border border-jaune" onclick="filterByBrand('Hyundai')">
+          <div class="text-4xl mb-2 text-jaune">🛻</div>
+          <div class="font-bold text-argent">Hyundai</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dernières arrivées -->
+  <section class="py-16 bg-black">
+    <div class="container mx-auto px-4">
+      <h3 class="text-3xl font-bold mb-8 text-argent">Dernières arrivées</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="lastCars"></div>
+      <div class="text-center mt-8">
+        <a href="catalog.html" class="bg-jaune text-black px-8 py-3 rounded-lg font-bold hover:bg-yellow-500 transition">
+          Voir toutes les voitures
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const cars = [
+      {
+        id: "001",
+        make: "BMW",
+        model: "X5",
+        year: 2020,
+        price: 45000,
+        mileage: 45000,
+        city: "Paris",
+        engine: "3.0 essence",
+        transmission: "automatique",
+        body: "SUV",
+        color: "noir",
+        description: "Excellent état, 4x4 d'origine, entretien concessionnaire. Options: toit panoramique, régulateur adaptatif, caméra 360°, sièges ventilés.",
+        photos: ["https://images.unsplash.com/photo-1555215695-3004980ad54e?w=400"],
+        contactPhone: "+33 6 12 34 56 78",
+        contactWhatsApp: "33612345678"
+      },
+      {
+        id: "002",
+        make: "Mercedes-Benz",
+        model: "Classe E",
+        year: 2019,
+        price: 38000,
+        mileage: 67000,
+        city: "Lyon",
+        engine: "2.0 diesel",
+        transmission: "automatique",
+        body: "berline",
+        color: "blanc",
+        description: "Magnifique berline business. Diesel économique, régulateur adaptatif, sièges confort, grand coffre.",
+        photos: ["https://images.unsplash.com/photo-1563720223185-11003d516935?w=400"],
+        contactPhone: "+33 6 98 76 54 32",
+        contactWhatsApp: "33698765432"
+      },
+      {
+        id: "003",
+        make: "Toyota",
+        model: "Camry",
+        year: 2021,
+        price: 32000,
+        mileage: 32000,
+        city: "Marseille",
+        engine: "2.5 essence",
+        transmission: "automatique",
+        body: "berline",
+        color: "argent",
+        description: "Sedan japonais fiable. État impeccable, un seul propriétaire, service complet chez concessionnaire.",
+        photos: ["https://images.unsplash.com/photo-1593720213428-28a5b9e94613?w=400"],
+        contactPhone: "+33 6 12 34 56 78",
+        contactWhatsApp: "33612345678"
+      }
+    ];
+
+    function renderLastCars() {
+      const container = document.getElementById('lastCars');
+      const lastCars = cars.slice(-3);
+      container.innerHTML = lastCars.map(car => `
+        <div class="bg-black rounded-lg shadow-lg hover:shadow-yellow-500/25 transition border border-jaune">
+          <img src="${car.photos[0]}" class="w-full h-48 object-cover rounded-t-lg border-b border-jaune">
+          <div class="p-4">
+            <h3 class="font-bold text-xl text-argent">${car.make} ${car.model}</h3>
+            <p class="text-gray-400">${car.year} • ${car.mileage.toLocaleString()} km</p>
+            <p class="text-2xl font-bold text-jaune mt-2">${car.price.toLocaleString()} €</p>
+            <a href="car.html?id=${car.id}" class="block mt-4 bg-jaune text-black text-center py-2 rounded-lg font-bold hover:bg-yellow-500 transition">
+              Détails
+            </a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function quickSearch() {
+      const query = document.getElementById('mainSearch').value;
+      if (query.trim()) {
+        window.location.href = `catalog.html?search=${encodeURIComponent(query)}`;
+      } else {
+        window.location.href = 'catalog.html';
+      }
+    }
+
+    function filterByBrand(brand) {
+      window.location.href = `catalog.html?make=${encodeURIComponent(brand)}`;
+    }
+
+    window.onload = renderLastCars;
+  </script>
+</body>
+</html>
