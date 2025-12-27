@@ -233,6 +233,7 @@ function renderCar() {
   currentPhotos = car.photos;
   
   container.innerHTML = `
+
     <!-- Галерея -->
     <div class="bg-black rounded-lg shadow-lg mb-8 border border-jaune">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4" id="gallery">
@@ -307,6 +308,47 @@ function renderCar() {
       <p class="text-center text-gray-400 mt-4 text-sm">${car.contactPhone}</p>
     </div>
   `;
+
+  // ========== Schema.org для машины ==========
+  const schemaScript = document.createElement('script');
+  schemaScript.type = 'application/ld+json';
+  schemaScript.textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Car",
+    "name": `${car.make} ${car.model} ${car.year}`,
+    "brand": {
+      "@type": "Brand",
+      "name": car.make
+    },
+    "model": car.model,
+    "vehicleModelDate": car.year,
+    "mileageFromOdometer": {
+      "@type": "QuantitativeValue",
+      "value": car.mileage,
+      "unitCode": "KMT"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": car.price,
+      "priceCurrency": "EUR",
+      "availability": "https://schema.org/InStock",
+      "seller": {
+        "@type": "AutoDealer",
+        "name": "D.L AUTO 85",
+        "telephone": car.contactPhone,
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "168 Rte de Niort",
+          "addressLocality": "Saint-Martin-de-Fraigneau",
+          "postalCode": "85200",
+          "addressCountry": "FR"
+        }
+      }
+    },
+    "description": car.description,
+    "image": car.photos
+  });
+  document.head.appendChild(schemaScript);
 }
 
 // Лайтбокс галереи
