@@ -6,7 +6,10 @@
   
   <!-- SEO для страницы машины -->
   <title>Hyundai Getz 2006 - 3990€ | DL.AUTO</title>
+  <meta name="description" content="Hyundai Getz 2006, 218000 km, diesel, manuelle. Prix: 3990€. Contact: +33 6 12 34 56 78. Paris.">
+  <link rel="canonical" href="https://85dlauto85.github.io/dl-auto-85/car.html?id=001">
   
+  <!-- Favicon -->
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="shortcut icon" href="/favicon.ico" />
@@ -14,10 +17,7 @@
   <meta name="apple-mobile-web-app-title" content="DL.AUTO 85" />
   <link rel="manifest" href="/site.webmanifest" />
   
-  <meta name="description" content="Hyundai Getz 2006, 218000 km, diesel, manuelle. Prix: 3990€. Contact: +33 6 12 34 56 78. Paris.">
-  <link rel="canonical" href="https://85dlauto85.github.io/dl-auto-85/car.html?id=001">
-  
-  <!-- Остальное -->
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -32,8 +32,9 @@
       }
     }
   </script>
+  
+  <!-- Лайтбокс стили -->
   <style>
-    /* Лайтбокс для фото */
     .lightbox { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.95); cursor: pointer; }
     .lightbox-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 90%; max-height: 90%; border: 3px solid #FFD700; border-radius: 8px; pointer-events: none; }
     .lightbox-close { position: absolute; top: 20px; right: 40px; font-size: 40px; color: #FFD700; cursor: pointer; font-weight: bold; pointer-events: all; }
@@ -42,6 +43,7 @@
     .lightbox-next { right: 20px; }
   </style>
 </head>
+
 <body class="bg-gray-900 text-white">
   <!-- Header -->
   <header class="bg-black shadow-lg sticky top-0 z-50 border-b-2 border-jaune">
@@ -55,7 +57,7 @@
   </header>
 
   <div class="container mx-auto px-4 py-8" id="carDetail">
-    <!-- Содержимое загружается динамически -->
+    <!-- Контент загружается динамически -->
   </div>
 
   <!-- Лайтбокс -->
@@ -66,10 +68,7 @@
     <img id="lightbox-img" class="lightbox-content" onclick="event.stopPropagation()">
   </div>
 
-  <!-- Подключаем скрипты -->
-  <script src="data.js"></script>
-  <script src="main.js"></script>
-    <!-- Footer -->
+  <!-- Footer -->
   <footer class="bg-black border-t-2 border-jaune py-8 mt-16">
     <div class="container mx-auto px-4 text-center">
       <div class="flex justify-center gap-6 mb-4 flex-wrap">
@@ -81,5 +80,9 @@
       <p class="text-gray-500 text-sm">© 2025 D.L AUTO 85. Tous droits réservés.</p>
     </div>
   </footer>
+
+  <!-- Подключаем скрипты -->
+  <script src="data.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>

@@ -10,7 +10,6 @@ const cars = [
     year: 2006,
     price: 3990,
     mileage: 218000,
-    city: "Paris",
     engine: "1.5 diesel",
     transmission: "mécanique",
     body: "citadine",
@@ -27,5 +26,5 @@ const cars = [
     ],
     contactPhone: "+33 6 35 95 79 41",
     contactWhatsApp: "33635957941"
-  }
+  },
 ];

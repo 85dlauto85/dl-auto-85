@@ -29,13 +29,13 @@ function renderLastCars() {
   container.innerHTML = lastCars.map(car => `
     <div class="bg-black rounded-lg shadow-lg hover:shadow-yellow-500/25 transition border border-jaune">
       <img src="${car.photos[0]}" 
-           class="w-full h-48 object-cover rounded-t-lg border-b border-jaune"
+           alt="${car.make} ${car.model} ${car.year}"
+           class="w-full h-48 object-contain rounded-t-lg border-b border-jaune"
            onerror="this.src='https://via.placeholder.com/400x300?text=Photo+indisponible'">
       <div class="p-4">
         <h3 class="font-bold text-xl text-argent mb-2">${car.make} ${car.model}</h3>
         <p class="text-gray-400">${car.year} • ${formatPrice(car.mileage)} km</p>
         <p class="text-2xl font-bold text-jaune mt-2">${formatPrice(car.price)} €</p>
-        <p class="text-sm text-gray-500">📍 ${car.city}</p>
         <a href="car.html?id=${car.id}" class="block mt-4 bg-jaune text-black text-center py-2 rounded-lg font-bold hover:bg-yellow-500 transition">
           Détails →
         </a>
@@ -165,13 +165,13 @@ function renderCars() {
     grid.innerHTML = filteredCars.map(car => `
       <div class="bg-black rounded-lg shadow-lg hover:shadow-yellow-500/25 transition border border-jaune">
         <img src="${car.photos[0]}" 
-             class="w-full h-48 object-cover rounded-t-lg border-b border-jaune"
+             alt="${car.make} ${car.model} ${car.year}"
+             class="w-full h-48 object-contain rounded-t-lg border-b border-jaune"
              onerror="this.src='https://via.placeholder.com/400x300?text=Photo+indisponible'">
         <div class="p-4">
           <h3 class="font-bold text-xl text-argent mb-2">${car.make} ${car.model}</h3>
           <p class="text-gray-400">${car.year} • ${formatPrice(car.mileage)} km</p>
           <p class="text-2xl font-bold text-jaune mt-2">${formatPrice(car.price)} €</p>
-          <p class="text-sm text-gray-500">📍 ${car.city}</p>
           <a href="car.html?id=${car.id}" class="block mt-4 bg-jaune text-black text-center py-2 rounded-lg font-bold hover:bg-yellow-500 transition">
             Détails →
           </a>
@@ -239,7 +239,8 @@ function renderCar() {
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4" id="gallery">
         ${car.photos.map((photo, index) => `
           <img src="${photo}" 
-               class="w-full h-64 object-cover rounded-lg cursor-pointer hover:opacity-90 transition border border-jaune" 
+               alt="${car.make} ${car.model} ${car.year} - Photo ${index + 1}"
+               class="w-full h-64 object-contain rounded-lg cursor-pointer hover:opacity-90 transition border border-jaune" 
                onclick="openGallery(${index})"
                onerror="this.src='https://via.placeholder.com/400x300?text=Photo+indisponible'">
         `).join('')}
@@ -292,10 +293,10 @@ function renderCar() {
       </div>
     </div>
 
-    <!-- Контакты -->
+    <!-- Контакты и Поделиться -->
     <div class="bg-black rounded-lg shadow-lg p-6 border border-jaune">
       <h3 class="text-2xl font-bold mb-4 text-jaune">📞 Contactez-nous</h3>
-      <div class="flex flex-col sm:flex-row gap-4">
+      <div class="flex flex-col sm:flex-row gap-4 mb-4">
         <a href="tel:${car.contactPhone}" class="flex-1 bg-green-600 text-white py-3 rounded-lg font-bold text-center hover:bg-green-700 transition">
           📱 Appeler
         </a>
@@ -305,8 +306,41 @@ function renderCar() {
            💬 WhatsApp
         </a>
       </div>
+      
+      <!-- Кнопки Поделиться -->
+      <div class="flex gap-2 justify-center mt-6 flex-wrap">
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" 
+           target="_blank" 
+           class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition">
+           📘 Facebook
+        </a>
+        
+        <!-- Telegram -->
+        <a href="https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent('Regarde cette voiture: ' + car.make + ' ' + car.model)}" 
+           target="_blank" 
+           class="bg-sky-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-sky-600 transition">
+           ✈️ Telegram
+        </a>
+        
+        <!-- Instagram -->
+        <button onclick="copyForInstagram('${car.make} ${car.model}', '${car.price}', '${window.location.href}')" 
+           class="bg-pink-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-pink-700 transition">
+           📸 Instagram (Copier)
+        </button>
+      </div>
+      
       <p class="text-center text-gray-400 mt-4 text-sm">${car.contactPhone}</p>
     </div>
+
+    <script>
+    function copyForInstagram(modele, prix, url) {
+      const text = `🔥 ${modele} - ${prix}€\n🔗 ${url}\n📍 168 Rte de Niort, 85200\n📞 06 35 95 79 41`;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Texte copié! Collez-le sur Instagram.');
+      });
+    }
+    </script>
   `;
 
   // ========== Schema.org для машины ==========
