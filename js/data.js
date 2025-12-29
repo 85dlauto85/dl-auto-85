@@ -26,5 +26,6 @@ const cars = [
     ],
     contactPhone: "+33 6 35 95 79 41",
     contactWhatsApp: "33635957941"
-  },
+  }
 ];
+
