@@ -10,6 +10,7 @@ const cars = [
     year: 2006,
     price: 3990,
     mileage: 218000,
+    city: "Paris",
     engine: "1.5 diesel",
     transmission: "mécanique",
     body: "citadine",
